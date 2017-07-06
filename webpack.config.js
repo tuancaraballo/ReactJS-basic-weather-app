@@ -46,6 +46,9 @@ module.exports = {
     alias: {
       Main: __dirname + '/app/components/Main.jsx',
       Nav: __dirname + '/app/components/Nav.jsx',
+      Weather: __dirname + '/app/components/Weather.jsx',
+      About: __dirname + '/app/components/About.jsx',
+      Example: __dirname + '/app/components/Example.jsx',
     },
     extensions: ['*', '.js', '.jsx']
   },
