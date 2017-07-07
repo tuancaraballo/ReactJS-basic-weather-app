@@ -1,6 +1,7 @@
 var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherInfo = require('WeatherInfo');
+var openWeatherMap = require('openWeatherMap');
 
 var Weather = React.createClass( {
 	getInitialState: function () {
@@ -10,10 +11,17 @@ var Weather = React.createClass( {
 		}
 	},
 	handleSearch: function(location) {
-		this.setState({
-			location: location,
-			temp: 23
+		var that = this; // =-> this data binding gets lost where setState is called, this is why we save it here
+
+		openWeatherMap.getTemp(location).then(function (temp){
+			that.setState({  //-> 'this' get lost here 
+				location: location,
+				temp: temp
+			});
+		}, function(errorMessage) {
+				alert(errorMessage);
 		});
+		
 	},
 	render: function () {
 		var {location, temp} = this.state;

@@ -13,6 +13,7 @@ module.exports = {
       Example: __dirname + '/app/components/Example.jsx',
       WeatherForm: __dirname + '/app/components/WeatherForm.jsx',
       WeatherInfo: __dirname + '/app/components/WeatherInfo.jsx',
+      openWeatherMap: __dirname + '/app/api/openWeatherMap.jsx',
     },
     extensions: ['*', '.js', '.jsx']
   },
