@@ -5,10 +5,11 @@ const PORT = process.env.PORT ||  3000;
 
 app.use(function(request, response, next) {  //--> openWeatherMap always operates on http and not https, so for this app, I'm going
 											// to redirect all https traffic to http
-	if(request.headers['x-forwarded-proto'] === 'http'){ //-> if traffic is over http
-		next();
+	if(request.headers['x-forwarded-proto'] === 'https'){ //-> if traffic is over https, then modify it to http, this way it doesn't break 
+															// local host
+		response.redirect('http://' + request.hostname + request.url);	
 	}else{
-		response.redirect('http://' + request.hostname + request.url);
+		next();
 	}
 });
 
