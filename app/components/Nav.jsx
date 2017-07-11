@@ -1,8 +1,15 @@
 var React = require('react');
 var {Link, IndexLink} = require('react-router');
 
-var Nav= (props) => {
-	return (
+var Nav = React.createClass({
+
+	onSearch: function(e) {
+		e.preventDefault();
+		alert('not yet wired up');
+	},
+
+	render: function () {
+	  return (
 		<nav className="navbar navbar-default">
   			<div className="container-fluid">
     			
@@ -34,17 +41,19 @@ var Nav= (props) => {
         				</li>
       				</ul>
       	
-      				<form className="navbar-form navbar-left">
+      				<form className="navbar-form navbar-right" onSubmit={this.onSearch}>
         				<div className="form-group">
           					<input type="text" className="form-control" placeholder="Search"/>
         				</div>
-        				<button type="submit" className="btn btn-default">Submit</button>
+        				<button type="submit" className="btn btn-primary">Get Weather</button>
       				</form>
     			</div>
     		</div>
 		</nav>
 	);
-}
+	}
+});
+	
 
 module.exports = Nav;
 
