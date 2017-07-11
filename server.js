@@ -16,7 +16,6 @@ app.use(function(request, response, next) {  //--> openWeatherMap always operate
 // folder to expose to web server
 app.use(express.static('public'));
 
-
 app.listen(PORT, function() {
     console.log('Server listening to port '+ PORT);
 });
