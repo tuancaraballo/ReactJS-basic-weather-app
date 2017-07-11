@@ -6,10 +6,17 @@ var Nav = require('Nav');
 
 var Main = (props) => {
 	return (
-		<div>
+		<div>			
 			<Nav/>
-			<h2> Main Component </h2>
-			{props.children} 
+
+			<div className="container-fluid">
+  				<div className="row">
+  					<div className="col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4"> 
+  						{props.children} 
+  					</div>
+ 				</div>	
+			</div>
+
 		</div>	
 	);
 }
