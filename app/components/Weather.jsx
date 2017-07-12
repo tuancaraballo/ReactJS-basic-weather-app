@@ -1,7 +1,9 @@
 var React = require('react');
 var WeatherForm = require('WeatherForm');
 var WeatherInfo = require('WeatherInfo');
+var ErrorModal = require('ErrorModal');
 var openWeatherMap = require('openWeatherMap');
+
 
 var Weather = React.createClass( {
 	getInitialState: function () {
@@ -10,8 +12,13 @@ var Weather = React.createClass( {
 		}
 	},
 	handleSearch: function(location) {
+		
 		var that = this; // =-> this data binding gets lost where setState is called, this is why we save it here
-		this.setState({isLoading: true});
+		
+		this.setState({
+			isLoading: true,
+			errorMessage: undefined
+		});
 
 		openWeatherMap.getTemp(location).then(function (temp){
 			that.setState({  //-> 'this' get lost here 
@@ -19,13 +26,15 @@ var Weather = React.createClass( {
 				temp: temp,
 				isLoading: false
 			});
-		}, function(errorMessage) {
-				that.setState({isLoading:false})
-				alert(errorMessage);
+		}, function(e) {
+				that.setState({
+					isLoading:false,
+					errorMessage: e.toString(),
+				});
 		});
 	},
 	render: function () {
-		var {isLoading, location, temp} = this.state;
+		var {isLoading, location, temp, errorMessage} = this.state;
 
 		function renderMessage () {
 			if(isLoading){
@@ -34,12 +43,20 @@ var Weather = React.createClass( {
 				return <WeatherInfo location={location} temp={temp}/>;
 			}
 		}
+		function renderErrorMessage() {
+			if(typeof errorMessage === 'string'){
+				return (
+					<ErrorModal message={errorMessage}/>
+				);
+			}
+		} 
 
 		return (
 			<div>
 				<h1> Get Weather </h1>
 				<WeatherForm onSearch={this.handleSearch}/>
 				{renderMessage()}
+				{renderErrorMessage()}
 			</div>
 		);
 	}
