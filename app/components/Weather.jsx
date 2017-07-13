@@ -17,14 +17,16 @@ var Weather = React.createClass( {
 		
 		this.setState({
 			isLoading: true,
-			errorMessage: undefined
+			errorMessage: undefined,
+			location: undefined,
+			temp: undefined,
 		});
 
 		openWeatherMap.getTemp(location).then(function (temp){
 			that.setState({  //-> 'this' get lost here 
 				location: location,
 				temp: temp,
-				isLoading: false
+				isLoading: false,
 			});
 		}, function(e) {
 				that.setState({
@@ -33,6 +35,19 @@ var Weather = React.createClass( {
 				});
 		});
 	},
+	//--> it fires when the component has been mounted succesfully
+	// the Router gives you access to the query parameters
+	componentDidMount: function () {
+		// --> This last part query.location is what changes depending on what you're looking in the query
+		//     it could also be query.name
+		var location = this.props.location.query.location;
+
+		if(location && location.length > 0){
+			this.handleSearch(location);
+			window.location.hash = '#/';  // -->
+		}
+	},
+
 	render: function () {
 		var {isLoading, location, temp, errorMessage} = this.state;
 
@@ -53,7 +68,7 @@ var Weather = React.createClass( {
 
 		return (
 			<div>
-				<h1> Get Weather </h1>
+				<h1 className="page-title text-center"> Get Weather </h1>
 				<WeatherForm onSearch={this.handleSearch}/>
 				{renderMessage()}
 				{renderErrorMessage()}

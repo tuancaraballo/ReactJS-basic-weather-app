@@ -5,7 +5,17 @@ var Nav = React.createClass({
 
 	onSearch: function(e) {
 		e.preventDefault();
-		alert('not yet wired up');
+		var city = this.refs.search.value;
+
+
+    var encodedLocation = encodeURIComponent(city);
+
+    if(city && city.length > 0){
+      this.refs.search.value = ''; // ---> Notice here how setting this to '' works kinda by reference
+      window.location.hash = '#/?location='+encodedLocation;
+      this.props.onSearch(city);
+    }
+
 	},
 
 	render: function () {
@@ -43,7 +53,7 @@ var Nav = React.createClass({
       	
       				<form className="navbar-form navbar-right" onSubmit={this.onSearch}>
         				<div className="form-group">
-          					<input type="text" className="form-control" placeholder="Search"/>
+          					<input type="text" className="form-control"  ref='search'  placeholder="Search"/>
         				</div>
         				<button type="submit" className="btn btn-primary">Get Weather</button>
       				</form>
