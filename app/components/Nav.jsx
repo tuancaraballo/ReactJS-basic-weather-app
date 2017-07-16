@@ -13,7 +13,6 @@ var Nav = React.createClass({
     if(city && city.length > 0){
       this.refs.search.value = ''; // ---> Notice here how setting this to '' works kinda by reference
       window.location.hash = '#/?location='+encodedLocation;
-      this.props.onSearch(city);
     }
 
 	},

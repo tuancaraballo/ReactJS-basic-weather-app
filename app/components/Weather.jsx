@@ -48,6 +48,15 @@ var Weather = React.createClass( {
 		}
 	},
 
+	// --> OJO: if the weather's component's props (url) will be changed by a different component
+	//   (parent) the weather component will re-render, this function allows that
+	componentWillReceiveProps: function (newProps) {
+		var location = newProps.location.query.location;
+		if(location && location.length > 0){
+			this.handleSearch(location);
+			window.location.hash = '#/';  // --> 
+		}
+	},
 	render: function () {
 		var {isLoading, location, temp, errorMessage} = this.state;
 
